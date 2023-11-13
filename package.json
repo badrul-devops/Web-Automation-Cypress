@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cypress open --e2e --browser chrome",
     "cypress:execution": "cypress run --spec cypress/e2e/features/*",
-    "cypress:execution-tags": "cypress run --env tags=@mobile",
+    "cypress:execution-tags": "cypress run --env tags=@focus",
     "allure:execution-headless": "cypress run --env allure=true",
     "allure:execution-headed": "cypress open --e2e --browser chrome --env allure=true",
     "allure:clear": "rm -r allure-results/ allure-report cypress/screenshots || true",

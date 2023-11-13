@@ -1,6 +1,8 @@
 class data {
     
-    orange_url = 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'
+    url = 'https://www.w3schools.com/'
+    Email = "badrul.qups@gmail.com"
+    Password = "Qups#123"
     
 
     // Time wait 

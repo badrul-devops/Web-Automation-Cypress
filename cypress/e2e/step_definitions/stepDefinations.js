@@ -6,615 +6,268 @@ Cypress.config('defaultCommandTimeout', 60000)
 const locator = new locatorsPage();
 const data = new allData();
 
-Given('Open Browser and Visit Website',()=> {
-    cy.visit(data.orange_url);
-    });
-When('Enter the user login with  invalid username', () => {
-     //  // Assuming "data" and "locator" are defined somewhere
-     cy.wait(2000);
-     cy.xpath(locator.Username).should('be.visible')
-     cy.xpath(locator.Username).type('dmin'); // Access email using index [0]
-     cy.xpath(locator.Password).should('be.visible')
-     cy.xpath(locator.Password).type('admin123'); // Access password using index [0]
-     });
-Then('Click The Login Button', ()=> {
-    cy.xpath(locator.login).should('contain','Login')
-    cy.xpath(locator.login).should('be.visible')
-   cy.xpath(locator.login).click()
-   cy.wait(2000)
-  });
-When('Enter the user login with invalid password', () => {
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.Username).should('be.visible')
-    cy.xpath(locator.Username).type('Admin'); // Access email using index [0]
-    cy.xpath(locator.Password).should('be.visible')
-    cy.xpath(locator.Password).type('admi'); // Access password using index [0]
-    });
-Then('Click The Login Button for invalid password',  ()=> {
-    cy.xpath(locator.login).should('contain','Login')
-    cy.xpath(locator.login).should('be.visible')
-    cy.xpath(locator.login).click()
-   cy.wait(2000)
-   });
-When('Enter the user login with valid username & password', () => {
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.Username).should('be.visible')
-    cy.xpath(locator.Username).type('Admin'); // Access email using index [0]
-    cy.xpath(locator.Password).should('be.visible')
-    cy.xpath(locator.Password).type('admin123'); // Access password using index [0]
-    });
-Then('Click The Login Button with Valid Username & Password',  ()=> {
-    cy.xpath(locator.login).should('contain','Login')
-    cy.xpath(locator.login).should('be.visible')
-    cy.xpath(locator.login).click()
-    cy.wait(2000)
-    });
-
-Then('open admin panel',  ()=> {
-    cy.xpath(locator.admin).should('contain','Admin')
-    cy.xpath(locator.admin).should('be.visible')
-    cy.xpath(locator.admin).click({force:true})
-    cy.wait(2000)
-    });     
-    
-    Then('Enter the admin name searching', () => {
-        // const feature_dats = dataTable.hashes();
-        //  // Assuming "data" and "locator" are defined somewhere
-        cy.wait(2000);
-        cy.xpath(locator.usernameee).should('be.visible')
-        cy.xpath(locator.usernameee).type('Admin');
-    });
-Then('Now search the admin', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.Search).should('contain','Search')
-    cy.xpath(locator.Search).should('be.visible')
-    cy.xpath(locator.Search).click({force:true});
+    Given(`Visit the website`, () => {
+        // [Given] Sets up the initial state of the system.
+        cy.visit(data.url);
     });
     
+    When(`Click on login Option`, () => {
+        cy.wait(data.oneSecond);
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.LoginButtonHome).click({force:true});
+
+    });
     
-Then ('Go to job board', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.job).should('contain','Job')
-    cy.xpath(locator.job).should('be.visible')
-    cy.xpath(locator.job).click({force:true});
+    When(`Enter Email And Password`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.EmailBox).type(data.Email);
+        cy.wait(data.oneSecond);
+        cy.xpath(locator.PasswordBox).click({force:true});
+        cy.xpath(locator.PasswordBox).type(data.Password);
+ 
     });
-Then('Click the job title', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.jobtitle).should('contain','Job Titles')
-    cy.xpath(locator.jobtitle).should('be.visible')
-    cy.xpath(locator.jobtitle).click({force:true});
+    
+    When(`Click on login button`, () => {
+        cy.wait(data.oneSecond);
+        cy.xpath(locator.LoginButton).click({force:true});
     });
-Then('add new job', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.add).should('contain','Add')
-    cy.xpath(locator.add).should('be.visible')
-    cy.xpath(locator.add).click({force:true});
+    
+    Given(`Go to W3school`, () => {
+        cy.visit(data.url);
+        
     });
-Then('Write job title', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
+    
+    // When(`Click on login Option`, () => {
+    //     cy.wait(data.oneSecond);
+    //     // [When] Describes the action or event that triggers the scenario.
+    //     cy.xpath(locator.LoginButtonHome).click({force:true});
+    // });
+    
+    Then(`Check that Login page is Displayed`, () => {
+       cy.xpath(locator.LoginPage).should('be.visible');
+       cy.wait(data.oneSecond);
 
-    cy.xpath(locator.writejobtitle).should('be.visible')
-    cy.xpath(locator.writejobtitle).type('Junior SQA Engineer');
     });
-Then('Save this job', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save).should('contain','Save')
-    cy.xpath(locator.save).should('be.visible')
-    cy.xpath(locator.save).click({force:true});
+    
+    Then(`Check that EmailBox is Displayed`, () => {
+        cy.xpath(locator.EmailBox).should('be.visible');
     });
-Then('Delete this job', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.delete).should('be.visible')
-    cy.xpath(locator.delete).click({force:true});
+    
+    When(`Inpun Email in EmailBox`, () => {
+        cy.xpath(locator.EmailBox).type(data.Email);
+        cy.wait(data.oneSecond);
     });
-Then('Confirm delete', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.delete2).should('be.visible')
-    cy.xpath(locator.delete2).click({force:true});
-    });
-Then('Click organization', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.clickorg).should('contain','Organization')
-    cy.xpath(locator.clickorg).should('be.visible')
-    cy.xpath(locator.clickorg).click({force:true});
-    });
-Then('Check organization info', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.clickorginfo).should('contain','General Information')
-    cy.xpath(locator.clickorginfo).should('be.visible')
-    cy.xpath(locator.clickorginfo).click({force:true});
-    });
-Then('Edit Organization info and save it', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.edit).should('be.visible')
-    cy.xpath(locator.edit).click({force:true});
-    });
-Then('Write organization name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.orgname).should('be.visible')
-    cy.xpath(locator.orgname).clear().type('OrangeHRM');
-    });
-Then('Write reginumber on regi box', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.reginumber).should('be.visible')
-    cy.xpath(locator.reginumber).clear().type('12345');
-    });
-Then('Write taxid on taxid box', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
+    
+    Then(`Check that PasswordBox is Displayed`, () => {
+        cy.xpath(locator.PasswordBox).should('be.visible');
 
-    cy.xpath(locator.reginumber).should('be.visible')
-    cy.xpath(locator.taxid).clear().type('123456');
     });
-Then('Write phone number on phone box', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.phone).should('be.visible')
-    cy.xpath(locator.phone).clear().type('01740444340');
+    
+    When(`Inpun Password in PasswordBox`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.PasswordBox).type(data.Password);
+        cy.wait(data.oneSecond);
     });
-Then('Write email on email box', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.email).should('be.visible')
-    cy.xpath(locator.email).clear().type('qups.parvej@gmail.com');
+    
+    When(`Click on Login Button`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.LoginButton).click({force:true});
+        cy.wait(data.oneSecond);
     });
-Then('Click save button', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save2).should('contain','Save')
-    cy.xpath(locator.save2).should('be.visible')
-    cy.xpath(locator.save2).click({force:true});
+    
+    Given(`Check that Logo is Displayed`, () => {
+        // [Given] Sets up the initial state of the system.
+        cy.xpath(locator.logo).should('be.visible');
+        cy.wait(data.oneSecond);
     });
-Then('Click again organization', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.clickorg2).should('contain','Organization')
-    cy.xpath(locator.clickorg2).should('be.visible')
-    cy.xpath(locator.clickorg2).click({force:true});
+    
+    When(`Click on Logo`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.logo).click({force:true});
     });
-Then('Click again location', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.location).should('contain','Locations')
-    cy.xpath(locator.location).should('be.visible')
-    cy.xpath(locator.location).click({force:true});
-    });
-Then('Write location name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.locname).should('be.visible')
-    cy.xpath(locator.locname).type('Canadian Regional HQ');
-    });
+    
+    Then(`Check that Home page is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.HomePage).should('be.visible');
+        cy.wait(data.oneSecond);
 
-Then('Search Location name and city', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.search2).should('contain','Search')
-    cy.xpath(locator.search2).should('be.visible')
-    cy.xpath(locator.search2).click({force:true});
     });
-Then('Click organization once again', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.clickorg3).should('contain','Organization')
-    cy.xpath(locator.clickorg3).should('be.visible')
-    cy.xpath(locator.clickorg3).click({force:true});
+    
+    Given(`Check that HTML Section is Available`, () => {
+        // [Given] Sets up the initial state of the system.
+        cy.xpath(locator.HtmlSection).should('be.visible');
+        cy.wait(data.oneSecond);
     });
-Then('Click structure', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.structure).should('contain','Structure')
-    cy.xpath(locator.structure).should('be.visible')
-    cy.xpath(locator.structure).click({force:true});
+    
+    When(`Click on HTML Section`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.HtmlSection).click({force:true});
     });
-Then('Click edit button', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
+    
+    Then(`Check that Home Tutorial is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.HtmlPage).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    Then(`Check that Sidebar is Available`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.SideBar).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    Then(`Check that HTML Introduction Section`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.HtmlIntroductionSection).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    When(`Click on HTML Introduction Section`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.HtmlIntroductionSection).click({force:true});
+    });
+    
+    Then(`Check that Home Introduction page is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.HtmlPage).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    Then(`Check that HTML Basic Section`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.HtmlBasicSection).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    When(`Click on HTML Basic Section`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.HtmlBasicSection).click({force:true});
+    });
+    
+    Then(`Check that Home Basic page is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.HtmlPage).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    Then(`Check that Try it YourSelf is Available`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.TryitYourself).should('be.visible');
+        cy.wait(data.oneSecond);
+        
+    });
+    
+    When(`Click on Try it YourSelf`, () => {
+        const TryitYourselfXPath = locator.TryitYourself;
 
-    cy.xpath(locator.edit2).should('be.visible')
-    cy.xpath(locator.edit2).click({force:true});
+        // Use cy.get to select the element by class and index
+        cy.get(".w3-btn.w3-margin-bottom").eq(0)
+          .invoke('removeAttr', 'target') // Remove the 'target' attribute
+          .then(() => {
+            // Click using XPath
+            cy.xpath(TryitYourselfXPath).click({ force: true });
+          });
     });
-Then('Click add button', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.add2).should('contain','Add')
-    cy.xpath(locator.add2).should('be.visible')
-    cy.xpath(locator.add2).click({force:true});
+    
+    Then(`Check that Try it YourSelf page is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.RunButton).should('be.visible');
+        cy.wait(data.oneSecond);
     });
-Then('Write structure name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.strname).should('be.visible')
-    cy.xpath(locator.strname).type('QA QUOPS');
+    
+    When(`Click on Run Button`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.RunButton).click({force:true});
     });
-Then('Now save structure', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save3).should('contain','Save')
-    cy.xpath(locator.save3).should('be.visible')
-    cy.xpath(locator.save3).click({force:true});
+    
+    Then(`Check that Code output is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.ResultOutput).should('be.visible');
+        cy.wait(data.oneSecond);
     });
-Then('Click on qualification', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.qualifiy).should('contain','Qualifications')
-    cy.xpath(locator.qualifiy).should('be.visible')
-    cy.xpath(locator.qualifiy).click({force:true});
+    
+    Then(`Check that Next Button is Available`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.NextButton).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    When(`Click on Next Button`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.NextButton).click({force:true});
+    });
+    
+    Then(`Check that Next page is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.HtmlPage).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    Then(`Check that Previous Button is Available`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.PreviousButton).should('be.visible');
+        cy.wait(data.oneSecond);
+    });
+    
+    When(`Click on Previous Button`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.PreviousButton).click({force:true});
+    });
+    
+    Then(`Check that Previous page is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.HtmlIntroductionSection).should('be.visible');
+        cy.wait(data.oneSecond);
     });
 
-Then('Click on skill', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.skill).should('contain','Skills')
-    cy.xpath(locator.skill).should('be.visible')
-    cy.xpath(locator.skill).click({force:true});
+    Then(`Check that Learning page is Displayed`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.LearningPage).should('be.visible');
+        cy.wait(data.oneSecond);
     });
-Then('Click on add button', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.add3).should('contain','Add')
-    cy.xpath(locator.add3).should('be.visible')
-    cy.xpath(locator.add3).click({force:true});
+    
+    Then(`Check that Logout Option is Available`, () => {
+        // [Then] Describes the expected outcome or result of the scenario.
+        cy.xpath(locator.LogoutButton).should('be.visible');
+        cy.wait(data.oneSecond);
     });
-Then('Write the skill name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.skilname).should('be.visible')
-    cy.xpath(locator.skilname).type('Machine Learning');
-    });
-Then('Now save this skill', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save4).should('contain','Save')
-    cy.xpath(locator.save4).should('be.visible')
-    cy.xpath(locator.save4).click({force:true});
-    });
-Then('Go to qualification for education', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.qualifiy2).should('contain','Qualifications')
-    cy.xpath(locator.qualifiy2).should('be.visible')
-    cy.xpath(locator.qualifiy2).click({force:true});
-    });
-Then('Go to education', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.edu).should('contain','Education')
-    cy.xpath(locator.edu).should('be.visible')
-    cy.xpath(locator.edu).click({force:true});
-    });
-Then('Click on education add button', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.add4).should('contain','Add')
-    cy.xpath(locator.add4).should('be.visible')
-    cy.xpath(locator.add4).click({force:true});
+    
+    When(`Click on Logout Option`, () => {
+        // [When] Describes the action or event that triggers the scenario.
+        cy.xpath(locator.LogoutButton).click({force:true});
     });
 
-Then('Write the qualification level', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
 
-    cy.xpath(locator.level).should('be.visible')
-    cy.xpath(locator.level).type('Bachelor of Science in CSE');
+    Given("Go to Home page", () => {
+        cy.xpath(locator.HomePage).should('be.visible');
+        
     });
 
-Then('Save qualification', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save5).should('contain','Save')
-    cy.xpath(locator.save5).should('be.visible')
-    cy.xpath(locator.save5).click({force:true});
-    });
-Then('Go to qualification for add language', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.qualifiy3).should('contain','Qualifications')
-    cy.xpath(locator.qualifiy3).should('be.visible')
-    cy.xpath(locator.qualifiy3).click({force:true});
-    });
-Then('Click on language', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.language).should('contain','Languages')
-    cy.xpath(locator.language).should('be.visible')
-    cy.xpath(locator.language).click({force:true});
-    });
-Then('Click on add for language', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.add5).should('contain','Add')
-    cy.xpath(locator.add5).should('be.visible')
-    cy.xpath(locator.add5).click({force:true});
-    });
-Then('Write the language name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.lanname).should('be.visible')
-    cy.xpath(locator.lanname).type('Banglish');
-    });
-Then('Now save the language', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save6).should('contain','Save')
-    cy.xpath(locator.save6).should('be.visible')
-    cy.xpath(locator.save6).click({force:true});
-    });
-Then('Go again click on qualification', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.qualifiy4).should('contain','Qualifications')
-    cy.xpath(locator.qualifiy4).should('be.visible')
-    cy.xpath(locator.qualifiy4).click({force:true});
+    Then("Check that Search Box is Displayed", () => {
+        cy.xpath(locator.SearchBox).should('be.visible');
+        cy.wait(data.oneSecond);
+        
     });
 
-Then('Go to Memberships', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.membership).should('contain','Memberships')
-    cy.xpath(locator.membership).should('be.visible')
-    cy.xpath(locator.membership).click({force:true});
-    });
-Then('Add membership name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.add6).should('contain','Add')
-    cy.xpath(locator.add6).should('be.visible')
-    cy.xpath(locator.add6).click({force:true});
-    });
-Then('Write the membership name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.memname).should('be.visible')
-    cy.xpath(locator.memname).type('Badhon Parvej');
-    });
-Then('Now save membership name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save7).should('contain','Save')
-    cy.xpath(locator.save7).should('be.visible')
-    cy.xpath(locator.save7).click({force:true});
-    });
-Then('Go to nationalities', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.nationalities).should('contain','Nationalities')
-    cy.xpath(locator.nationalities).should('be.visible')
-    cy.xpath(locator.nationalities).click({force:true});
-    });
-Then('Click add button for added nationalities name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.add7).should('contain','Add')
-    cy.xpath(locator.add7).should('be.visible')
-    cy.xpath(locator.add7).click({force:true});
-    });
-Then('Write the nationalities name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.nationame).should('be.visible')
-    cy.xpath(locator.nationame).type('Badhon Parvej');
-    });
-Then('Now save it', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save8).should('contain','Save')
-    cy.xpath(locator.save8).should('be.visible')
-    cy.xpath(locator.save8).click({force:true});
-    });
-Then('Go to corporate branding', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.corpbanding).should('contain','Corporate Branding')
-    cy.xpath(locator.corpbanding).should('be.visible')
-    cy.xpath(locator.corpbanding).click({force:true});
-    });
-Then('Click on secondary color', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-
-    cy.xpath(locator.corpcolourbb).should('be.visible')
-    cy.xpath(locator.corpcolourbb).click({force:true});
-    });
-Then('Select a color', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-
-    cy.xpath(locator.setcolor).should('be.visible')
-    cy.xpath(locator.setcolor).click({force:true});
-    });
-Then('Publish corporate branding', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.publish).should('contain','Publish')
-    cy.xpath(locator.publish).should('be.visible')
-    cy.xpath(locator.publish).click({force:true});
-    cy.wait(2000);
+    When("Click on Search Box", () => {
+        cy.xpath(locator.SearchBox).click({force:true});
+        
     });
 
-Then('Go to configuration', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.configaration).should('contain','Configuration')
-    cy.xpath(locator.configaration).should('be.visible')
-    cy.xpath(locator.configaration).click({force:true});
-    cy.wait(2000);
+    When("Input something in Search Box", () => {
+        cy.xpath(locator.SearchBox).type("HTML");
+        cy.wait(data.oneSecond);
+        
     });
-Then('Click on email configuration', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.emailconfig).should('contain','Email Configuration')
-    cy.xpath(locator.emailconfig).should('be.visible')
-    cy.xpath(locator.emailconfig).click({force:true});
-    cy.wait(2000);
+    When("Click on Search Button", () => {
+        cy.xpath(locator.SearchButton).click({force:true});
+        
     });
-Then('Write the email name', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
+    Then("Check that Search Result is Displayed", () => {
+        cy.xpath(locator.HtmlPage).should('be.visible');
+        cy.wait(data.oneSecond);
+        
+    });
+        
 
-    cy.xpath(locator.emailbox).should('be.visible')
-    cy.xpath(locator.emailbox).clear().type('qups@gmail.com');
-    });
-Then('Setup the email configuration', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save9).should('contain','Save')
-    cy.xpath(locator.save9).should('be.visible')
-    cy.xpath(locator.save9).click({force:true});
-    });
-Then('Go to configuration for email subscription', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.configaration2).should('contain','Configuration')
-    cy.xpath(locator.configaration2).should('be.visible')
-    cy.xpath(locator.configaration2).click({force:true});
-    });
-Then('Click on email subscription', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.configemailsub).should('contain','Email Subscriptions')
-    cy.xpath(locator.configemailsub).should('be.visible')
-    cy.xpath(locator.configemailsub).click({force:true});
-    });
-Then('Click on leave application', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-
-    cy.xpath(locator.leavapp).should('be.visible')
-    cy.xpath(locator.leavapp).click({force:true});
-    });
-Then('Go configuration for module', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.configaration3).should('contain','Configuration')
-    cy.xpath(locator.configaration3).should('be.visible')
-    cy.xpath(locator.configaration3).click({force:true});
-    });
-Then('Click on module', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-
-    cy.xpath(locator.setmod).should('contain','Modules')
-    cy.xpath(locator.setmod).should('be.visible')
-    cy.xpath(locator.setmod).click({force:true});
-    });
-Then('Change mobile configuration', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-
-    cy.xpath(locator.mobilebutton).should('be.visible')
-    cy.xpath(locator.mobilebutton).click({force:true});
-    });
-Then('Setup the Module', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.save11).should('contain','Save')
-    cy.xpath(locator.save11).should('be.visible')
-    cy.xpath(locator.save11).click({force:true});
-    cy.wait(2000);
-    });
-When('Check the PIM', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.pim).should('contain','PIM')
-    cy.xpath(locator.pim).should('be.visible')
-    cy.xpath(locator.pim).click({force:true});
-    });
-Then('Show the employ list', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.srch).should('contain','Search')
-    cy.xpath(locator.srch).should('be.visible')
-    cy.xpath(locator.srch).click({force:true});
-    });
-Then('Check rest button', () => {
-    // const feature_dats = dataTable.hashes();
-    //  // Assuming "data" and "locator" are defined somewhere
-    cy.wait(2000);
-    cy.xpath(locator.reset).should('contain','Reset')
-    cy.xpath(locator.reset).should('be.visible')
-    cy.xpath(locator.reset).click({force:true});
-    });
+        

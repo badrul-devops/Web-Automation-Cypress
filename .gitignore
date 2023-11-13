@@ -6,7 +6,7 @@
 # Node artifact files
 node_modules/
 dist/
-
+# Dependency directories
 # Compiled Java class files
 *.class
 

@@ -3,7 +3,7 @@
         "baseUrl": ".",
         "paths": {
             "@pages/*": [
-                "cypress/Locators/*"
+                "cypress/Locators/*" // path to locators
             ]
         }
     }

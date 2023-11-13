@@ -19,9 +19,3 @@ CMD [""]
 
 #To build this image just use the following command line(just as an example, use your tag name:version as prefered.):
 #docker build -t cucumberproject:1.0 .
-
-#To run an example:
-#TAG INSTANCE: docker run -i -t cucumberproject:1.0 cypress run --spec cypress/e2e/features/* --env tags=@mobile
-#CHROME INSTANCE: docker run -i -t cucumberproject:1.0 cypress run --spec cypress/e2e/features/* --browser chrome
-#FIREFOX INSTANCE: docker run -i -t cucumberproject:1.0 cypress run --spec cypress/e2e/features/* --browser firefox
-# Volume config sample for Windows: -v "%cd%":/cucumberproject
